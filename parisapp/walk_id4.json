@@ -1,0 +1,49 @@
+{
+  "version":0.1,
+  "status":0,
+  "status_message":"Cannot find Watson Sept 4 directions.",
+  "route_summary": {
+    "total_distance":3000,
+    "total_time":2400,
+    "start_point":"28 Rue Vignon",
+    "end_point":"Museum of Modern Art" 
+  },
+  "route_geometry": [
+    [48.870276037710674, 2.325625419616699],
+    [48.87062888969466, 2.325732707977295],
+    [48.87072768780425, 2.3262476921081543],
+    [48.871943, 2.326488],	
+    [48.86954209761324, 2.324059009552002],
+    [48.866549768876176, 2.3216986656188965],
+    [48.86667680533698, 2.3206686973571777],
+    [48.86602750448236, 2.319810390472412],
+    [48.86615454226902, 2.3183512687683105],
+    [48.86702968270265, 2.3140811920166016],
+    [48.86724140792763, 2.3113131523132324],
+    [48.86683207168446, 2.309896945953369],
+    [48.86616865755874, 2.307407855987549],
+    [48.865081768600454, 2.3029232025146484],
+    [48.86495472809045, 2.301807403564453],
+    [48.863769001112054, 2.297344207763672]
+    
+  ],
+  "route_instructions":[
+    ["Exit the Madeleine métro stop (accessible via lines #8, #12 or #14)",0,0,0,"0 m","NE",22.5],
+    ["Walk to the north end of the church grounds (toward the back end of the cathedral). Follow the road that leads towards the right, Rue de Sèze.",32,1,10,"32m","NNE",22.5],
+    ["Take an almost immediate left onto Rue Vignon.",37,2,10,"37m","NNE",22.5],
+    ["Continue to #28 Rue Vignon.",160,3,30,"160m","NNE",22.5],
+    ["Retrace your steps to the Église de Ste-Marie Madeleine and proceed to the south end of the Église.",400,4,300,"400m","SSW",202.5],
+    ["Follow the Rue Royale southward until you reach the Place de la Concorde.",350,5,240,"350m","SSW",202.5],
+    ["As you navigate the hectic traffic, steer towards the right.",120,6,60,"120m","SSW",202.5],
+    ["Turn right onto the Avenue des Champs-Élysées.",100,7,60,"100m","SSW",202.5],
+    ["Enter the gardens on the lefthand side (south side) of the Avenue.",120,8,60,"120m","WNW",292.5],
+    ["Walk towards the two museums, the Petit Palais and the Grand Palais. Feel free to wander through the gardens however you wish. We’ll be picking up our next street at the north end of the Grand Palais (closer to the Champs-Élysées).",400,9,300,"400m","WNW",292.5],
+    ["Follow the Avenue Général Eisenhower as it heads southwest behind the Grand Palais.",200,10,120,"200m","W",270],
+    ["The Avenue will turn into the Rue Jean Granjon after it crosses the Avenue F. D. Roosevelt. Rue Jean Granjon runs parallel to the more touristy Ave. Montaigne, and so this street is quieter.",120,11,120,"120m","SW",225],
+    ["Pass through a scenic circle, the Place François 1er, and then you will see the small Armenian Church and Our Lady of Consolation on the left, just a few doors apart from one another.",200,12,120,"200m","SW",225],
+    ["As you reach the end of the street, pass through the small park on the righthand side.",400,13,300,"400m","SW",225],
+    ["As you come to the busy intersection, you’ll see a cafe, Chez Francis, on your right. We can’t be sure, but this is a likely place where Sheila and Wilfred may well have 'sat looking out at the Eiffel Tower and drank coffee.' This makes a good end for the journey, but you can optionally carry on, if you wish.",100,14,60,"100m","SW",225],
+    ["The Palais de Tokyo houses the Museum of Modern Art, just a few blocks away. Turn right on the Ave de New York.",400,15,300,"400m","WSW",247.5]
+  ],
+  "transactionId": "WatsonWalk" 
+}
