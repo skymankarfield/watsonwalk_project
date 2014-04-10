@@ -25,10 +25,19 @@ include("connect_db.php");
     
     <div id="content">
         <H3>Add POI Media Files</H3>
-        
+        <hr />
+        <div>
+		<center>
+		<div class="">
+		<a href="#" class="btn">SAVE</a>		
+		<a href="#" class="btn">DELETE</a>
+		</div>
+		</center>
+		<br />
+		</div>
 		<form>
 			<ul>
-				<hr />
+				
 				<li class="field">
 								<label class="inline" for="title">Title * <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
 								<input class="input" name="shortname" placeholder="Type Title" />
@@ -53,7 +62,7 @@ include("connect_db.php");
 				
 				<li>
 								<form action='' method='POST' enctype='multipart/form-data'>
-								<label class="inline" for="longdescription">SELECT FILE *</label>
+								<label class="inline" for="longdescription">SELECT FILE * <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
 							    <input type='file' name='userFile' style="padding-left: 200px;"><br>
 							    <input type='submit' name='upload_btn' value='upload' style="float: right;">
 								</form>	
@@ -75,9 +84,9 @@ include("connect_db.php");
     
     <div id="secondary" style="padding-bottom: 500px;">
         <h3>Media Files</h3>
-        <hr />
+        <br />
             	<center><a href="#" class="btn">ADD FILE</a></center>
-        <hr />
+        <br />
         <center>
         <div>
 		<ul>

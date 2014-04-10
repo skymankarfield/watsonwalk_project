@@ -38,7 +38,15 @@ include("connect_db.php");
 								</select>
 							</div>
 				</li>	
-				
+		<div>
+		<center>
+		<div class="">
+		<a href="#" class="btn">SAVE</a>		
+		<a href="#" class="btn">DELETE</a>
+		</div>
+		</center>
+		<br />
+		</div>				
 				<hr />	
 				<li class="field">
 								<label class="inline" for="shortname">Short Name * <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
@@ -61,16 +69,16 @@ include("connect_db.php");
 				<br /><br />
 				
 				<li class="field">
-								<label class="inline" for="distanceavailable">Unlock range <br /> (default is 5 meters)</label>
+								<label class="inline" for="distanceavailable">Unlock range <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span><br /> (default is 5 meters)</label>
 								<input class="input" name="distanceavailable" placeholder="5" />
 				</li>
 				<br /><br />	
 				<li class="field">
-								<label class="inline" for="shortdescription">Short Description</label>
+								<label class="inline" for="shortdescription">Short Description <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
 								<textarea class="textarea input" placeholder="Type Short description here" rows="5"></textarea>				
 				</li>																						
 				<li class="field">
-								<label class="inline" for="longdescription">Long Description</label>
+								<label class="inline" for="longdescription">Long Description <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
 								<textarea class="textarea input" placeholder="Type Long description here" rows="5"></textarea>				
 				</li>
 				<br /><br />	
@@ -80,7 +88,7 @@ include("connect_db.php");
 				<br />
 				<li>
 								<form action='' method='POST' enctype='multipart/form-data'>
-								<label class="inline" for="longdescription">Main image (to quickly identify this POI):</label>
+								<label class="inline" for="longdescription">Main image (to quickly identify this POI): <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
 								
 							    <input type='file' name='userFile' style="padding-left: 200px;"><br>
 							    <input type='submit' name='upload_btn' value='upload' style="float: right;">
@@ -95,9 +103,9 @@ include("connect_db.php");
 					
 			</ul>
 		</form>
-		<p>Add POI Media Files </p>
+		<p>Add POI Media Files <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
 		<p style="padding-left: 240px;"><a href="addmedia.php" class="btn">ADD FILE</a>	</p>
-		<p>List of Media Files </p>
+		<p>List of Media Files <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
 		<ul>
 			<li><a href="http://javakafe.com/location-based_App/cms_project/addmedia.php">Media file 1</a></li>
 			<li><a href="http://javakafe.com/location-based_App/cms_project/addmedia.php">Media file 2</a></li>
@@ -111,7 +119,7 @@ include("connect_db.php");
 		<br />	
 		<p>These values should be set automatically and probably do not need to be edited:</p>
 				<li class="field">
-							<p>Is this the first POI in the walk?</p>
+							<p>Is this the first POI in the walk? <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
 							<div class="picker" style="float: right; top: -35px;" >
 								<select>
 									<option value="#" disabled>YES/NO</option>
@@ -121,7 +129,7 @@ include("connect_db.php");
 							</div>
 				</li>	
 				<li class="field">
-							<p>Is this the last POI in the walk?</p>
+							<p>Is this the last POI in the walk? <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
 							<div class="picker" style="float: right; top: -35px;" >
 								<select>
 									<option value="#" disabled>YES/NO</option>
@@ -131,7 +139,7 @@ include("connect_db.php");
 							</div>
 				</li>
 				<li class="field">
-								<label class="inline" for="parent">Parent POI ID</label>
+								<label class="inline" for="parent">Parent POI ID <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
 								<input class="input" name="parent" placeholder="ID" />
 				</li>	
 	</div>
@@ -147,12 +155,11 @@ include("connect_db.php");
     </div>
     
     <div id="secondary">
+    	<h3>POIs in this walk </h3>
+    	
     	<br />
     	    	<center><a href="#" class="btn">ADD POI</a></center>
-        <hr />
-        <h3>POIs in this walk </h3>
-        <hr />
-        
+        <br />
         <center>
         <div>
         	<ul>
