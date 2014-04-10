@@ -3,10 +3,7 @@
 	<link rel='stylesheet' id=''  href='src/style.css' type='text/css' media='all' />
 </head>
 <body>
-<script src="js/jquery-1.10.2.min.js"></script>
-<?
-include("connect_db.php");
-?>
+<script src="src/jquery-2.1.0.js"></script>
 
 
     
