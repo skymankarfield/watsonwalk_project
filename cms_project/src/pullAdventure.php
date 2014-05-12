@@ -21,7 +21,13 @@ function getMediaContent($elementID,$tagKey,&$link,$baseURL)
 	{
 		$row = mysqli_fetch_assoc($result);
 		do{
-			$contentArray[$row['paramKey']]['value'] = $baseURL.$row['value'];
+			if (strpos($row['value'], 'http://') !== FALSE)
+			{
+				$contentArray[$row['paramKey']]['value'] = $row['value'];
+			}else
+				{
+					$contentArray[$row['paramKey']]['value'] = $baseURL.$row['value'];
+				}
 			$contentArray[$row['paramKey']]['fileType'] = $row['fileType'];
 			//$i++;
 			if(!in_array($baseURL.$row['value'], $mediaFiles))
@@ -618,10 +624,11 @@ function getAdventureMetadata($adventureID,$online,&$link,$language)
 	}
 	return $adventureArray;
 }
-	
+
 if(!$link)
 {
-	$link = mysqli_connect("localhost","parisapp","appparis102938","locationBasedApp");
+	include "getDBConnection.php";
+	$link = getConnection();
 }
 if($link)
 {

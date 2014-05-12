@@ -22,8 +22,8 @@
  <center>
 <div class="">
  <a href="#" onclick="goToPage('poiprofile')" class="btn">GO BACK</a>
- <a href="#" class="btn">SAVE</a>		
- <a href="#" class="btn">DELETE</a>
+ <a href="#" class="btn" onclick="createUpdateMediaInfo()">SAVE</a>		
+ <a href="#" class="btn" name="clear_delete" id="clear_delete">DELETE</a>
 </div>
  </center>
  <br />
@@ -58,7 +58,7 @@
    </form>
    <br />
    <br />
-   <img name="mediaimage" id="mediaimage" width="200" height="200" src="img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>	
+   <img name="mediaimage" id="mediaimage" width="200" height="200" src="http://javakafe.com/location-based_App/cms_project/img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>	
    </li>
    <br />				
    </ul>
@@ -67,8 +67,8 @@
 <center>
 <div class="">
  <a href="#" onclick="goToPage('poiprofile')" class="btn">GO BACK</a>	
- <a href="#" class="btn">SAVE</a>		
- <a href="#" class="btn">DELETE</a>
+ <a href="#" class="btn" onclick="createUpdateMediaInfo()">SAVE</a>		
+ <a href="#" class="btn" name="clear_delete2" id="clear_delete2">DELETE</a>
 </div>
 </center>
 <br />
@@ -76,14 +76,12 @@
 <div id="secondary" style="padding-bottom: 500px;">
  <h3>Media Files</h3>
  <br />
- <center><a href="#" class="btn">ADD FILE</a></center>
+ <center><a href="#" class="btn" onclick="showMediaFileProfileEmpty()">ADD FILE</a></center>
  <br />
  <center>
 <div id="mediafiles">
  <ul>
-  <li><a target="_blank">Media file 1</a></li>
-  <li><a target="_blank">Media file 2</a></li>
-  <li><a target="_blank">Media file 3</a></li>
+  <br /><br />
  </ul>
  <hr />
 </div>

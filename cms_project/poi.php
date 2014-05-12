@@ -23,7 +23,7 @@
   <p>This POI is <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
   <div class="picker" style="float: right; top: -35px;" >
   <select name="status" id="status">
-  <option value="#" disabled>PUBLIC/NOT PUBLIC POI</option>
+  <option value="#" disabled selected="selected">PUBLIC/NOT PUBLIC POI</option>
   <option value="1">PUBLIC</option>
   <option value="0">NOT PUBLIC</option>
   </select>
@@ -32,8 +32,8 @@
 <div>
 <center>
 <div class="">
- <a href="#" class="btn">SAVE</a>		
- <a href="#" class="btn">DELETE</a>
+ <a href="#" class="btn" onclick="createUpdatePOIInfo()">SAVE</a>		
+ <a href="#" class="btn" name="clear_delete" id="clear_delete">DELETE</a>
 </div>
 </center>
 <br />
@@ -79,7 +79,7 @@
   <input type='submit' name='upload_btn' value='upload' style="float: right;">
  </form>	
 <br /><br />
-<img name="poiimage" id="poiimage" width="200" height="200" src="img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>								
+<img name="poiimagegeneral" id="poiimagegeneral" width="200" height="200" src="http://javakafe.com/location-based_App/cms_project/img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>								
  </li>
 <br /><hr />			
 </ul>
@@ -89,9 +89,8 @@
 <p>List of Media Files <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
  <div id="mediafiles">
  <ul>
-  <li><a href="http://javakafe.com/location-based_App/cms_project/addmedia.php">Media file 1</a></li>
-  <li><a href="http://javakafe.com/location-based_App/cms_project/addmedia.php">Media file 2</a></li>
-  <li><a href="http://javakafe.com/location-based_App/cms_project/addmedia.php">Media file 3</a></li>
+  <br />
+  <br />
  </ul>
  </div>
  <br /><hr />
@@ -127,8 +126,8 @@
 <hr />
 <center>
 <div class="">
- <a href="#" class="btn">SAVE</a>		
- <a href="#" class="btn">DELETE</a>
+ <a href="#" class="btn" onclick="createUpdatePOIInfo()">SAVE</a>		
+ <a href="#" class="btn" name="clear_delete2" id="clear_delete2">DELETE</a>
 </div>
 </center>
 <br />
@@ -136,18 +135,12 @@
 <div id="secondary">
  <h3>POIs in this walk </h3>   	
  <br />
- <center><a href="#" class="btn">ADD POI</a></center>
+ <center><a href="#" class="btn" onclick="showPOIProfileEmpty()">ADD POI</a></center>
  <br />
  <center>
 <div id="listPOIs">        	
  <ul>
-  <li><img src="img/poi-img.jpg" /><br /><a href="#">POI Name</a> </li>
-  <hr />
-  <li><img src="img/poi-img.jpg" /><br /><a href="#">POI Name</a> </li>
-  <hr />
-  <li><img src="img/poi-img.jpg" /><br /><a href="#">POI Name</a> </li>
-  <hr />
-  <li><img src="img/poi-img.jpg" /><br /><a href="#">POI Name</a> </li>
+  <br /> <br />
  </ul>
 </div>
 </center>

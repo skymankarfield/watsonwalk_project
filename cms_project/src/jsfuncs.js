@@ -6,11 +6,61 @@ var currentMediaID = -1;
 var URLRepositoryLocal = "http://localhost/watsonwalk_cms%20/cms_project/src/pullAdventure.php?operation=generateAdventure&language=en&adventureID=";
 var POIProfilePage = "http://localhost/watsonwalk_cms%20/cms_project/poi.php";
 var mediaFileProfilePage = "http://localhost/watsonwalk_cms%20/cms_project/addmedia.php";
+var postCreateUpdatePOIInfoScript = "http://localhost/watsonwalk_cms%20/cms_project/src/createUpdatePOIInfo.php";
+var postCreateUpdateMediaInfoScript = "http://localhost/watsonwalk_cms%20/cms_project/src/createUpdateMediaInfo.php";
 var walks = new Object();
 var POIs = new Object();
 var maps = new Object();
 var jqxhr = null;
 var currentModeMediaFiles = null;
+
+function createUpdatePOIInfo()
+{
+	postJsonBody = new Object();
+	postJsonBody["currentPOIID"] = currentPOIID;
+	postJsonBody["currentWalkID"] = currentWalkID;
+	postJsonBody["currentAdventureID"] = currentAdventureID;
+	postJsonBody["status"] = $('#status').val();
+	postJsonBody["shortname"] = document.getElementById("shortname").value;
+	postJsonBody["longname"] = document.getElementById("longname").value;
+	postJsonBody["latitude"] = document.getElementById("latitude").value;
+	postJsonBody["longitude"] = document.getElementById("longitude").value;
+	postJsonBody["distanceavailable"] = document.getElementById("distanceavailable").value;
+	postJsonBody["shortdescription"] = document.getElementById("shortdescription").value;
+	postJsonBody["longdescription"] = document.getElementById("longdescription").value;
+	postJsonBody["poiimagegeneral"] = document.getElementById("poiimagegeneral").src;
+	
+	t=setTimeout("checkInternetConnection()",10000);
+	jqxhr = $.post( postCreateUpdatePOIInfoScript, postJsonBody, function( data ) {
+		clearTimeout(t);
+    	t=null;
+    	currentPOIID = data.currentPOIID;
+  		downloadAdventure(true);
+	});
+}
+
+function createUpdateMediaInfo()
+{
+	postJsonBody = new Object();
+	postJsonBody["currentPOIID"] = currentPOIID;
+	postJsonBody["currentWalkID"] = currentWalkID;
+	postJsonBody["currentAdventureID"] = currentAdventureID;
+	postJsonBody["currentMediaID"] = currentMediaID;
+	postJsonBody["shorttitle"] = document.getElementById("shorttitle").value;
+	postJsonBody["caption"] = document.getElementById("caption").value;
+	postJsonBody["longdescription"] = document.getElementById("longdescription").value;
+	postJsonBody["permissions"] = document.getElementById("permissions").value;
+	postJsonBody["notes"] = document.getElementById("notes").value;
+	postJsonBody["mediaimage"] = document.getElementById("mediaimage").src;
+	
+	t=setTimeout("checkInternetConnection()",10000);
+	jqxhr = $.post( postCreateUpdateMediaInfoScript, postJsonBody, function( data ) {
+		clearTimeout(t);
+    	t=null;
+    	currentMediaID = data["currentMediaID"];
+  		downloadMediaFile();
+	});
+}
 
 function getURLParameters(url)
 {
@@ -27,20 +77,32 @@ function getURLParameters(url)
     if (result["adventureID"] != null)
     {
     	currentAdventureID = result["adventureID"];
+    }else
+    {
+    	currentAdventureID = -1;
     }
     if (result["walkID"] != null)
 	{
 		currentWalkID = result["walkID"];
+	}else
+	{
+		currentWalkID = -1;
 	}
 	if (result["poiID"] != null)
 	{
 		currentPOIID = result["poiID"];
+	}else
+	{
+		currentPOIID = -1;
 	}
 	if (result["mediaID"] != null)
 	{
 		currentMediaID = result["mediaID"];
+	}else
+	{
+		currentMediaID = -1;
 	}
-    //alert(JSON.stringify(result));
+    
 }
 
 function goToPage(page)
@@ -71,20 +133,37 @@ function checkInternetConnection()
 
 }
 
+function showMediaFileProfileEmpty()
+{	
+	currentMediaID = -1;
+	document.getElementById("shorttitle").value = "";
+	document.getElementById("caption").value = "";
+	document.getElementById("longdescription").value = "";
+	document.getElementById("permissions").value = "";
+	document.getElementById("notes").value = "";
+	document.getElementById("mediaimage").src = "img/poi-img.jpg";
+	updateClearDeleteButton("mediapage");			
+}
+
 function showMediaFileProfile(adventureID, walkID, POIID, mediaID)
 {
-	currentMediaID = mediaID
+	currentMediaID = mediaID;
 	count2=0;
 			while(POIs[POIID].mediaInfo[count2] != null)
 			{
 				if (POIs[POIID].mediaInfo[count2].mediaInfo_ID == mediaID)
 				{
+					document.getElementById("shorttitle").value = getHTMLDecoded(POIs[POIID].mediaInfo[count2].textContent.shorttitle);
 					document.getElementById("caption").value = getHTMLDecoded(POIs[POIID].mediaInfo[count2].textContent.footnote);
 					document.getElementById("longdescription").value = getHTMLDecoded(POIs[POIID].mediaInfo[count2].textContent.description);
+					document.getElementById("permissions").value = getHTMLDecoded(POIs[POIID].mediaInfo[count2].textContent.permissions);
+					document.getElementById("notes").value = getHTMLDecoded(POIs[POIID].mediaInfo[count2].textContent.notes);
 					document.getElementById("mediaimage").src = POIs[POIID].mediaInfo[count2].mediaContent.photo.value;
+					
 				}
         		count2++;
         	}
+    updateClearDeleteButton("mediapage");
 }
 
 function showPOIProfile(adventureID, walkID, POIID)
@@ -97,8 +176,61 @@ function showPOIProfile(adventureID, walkID, POIID)
 	document.getElementById("distanceavailable").value = POIs[POIID].distanceAvailable;
 	document.getElementById("shortdescription").value = getHTMLDecoded(POIs[POIID].textContent.descriptionShort);
 	document.getElementById("longdescription").value = getHTMLDecoded(POIs[POIID].textContent.descriptionLong);
-	document.getElementById("poiimage").src = POIs[POIID].mediaContent.generalImage.value;
+	document.getElementById("poiimagegeneral").src = POIs[POIID].mediaContent.generalImage.value;
 	showListOfMediaFiles(adventureID, walkID, POIID);
+	updateClearDeleteButton("poipage");
+}
+
+function showPOIProfileEmpty()
+{
+	currentPOIID = -1;
+	document.getElementById("shortname").value = "";
+	document.getElementById("longname").value = "";
+	document.getElementById("latitude").value = "";
+	document.getElementById("longitude").value = "";
+	document.getElementById("distanceavailable").value = "";
+	document.getElementById("shortdescription").value = "";
+	document.getElementById("longdescription").value = "";
+	document.getElementById("poiimagegeneral").src = "img/poi-img.jpg";
+	document.getElementById("status").options[0].selected = true;
+	showListOfMediaFilesEmpty();
+	updateClearDeleteButton("poipage");
+}
+
+function updateClearDeleteButton(page)
+{
+	switch(page)
+	{
+		case "poipage":
+			if (currentPOIID != -1)
+			{
+				document.getElementById("clear_delete").innerHTML="DELETE";
+				document.getElementById("clear_delete2").innerHTML="DELETE";
+			}else
+			{
+				document.getElementById("clear_delete").innerHTML="CLEAR FORM";
+				document.getElementById("clear_delete2").innerHTML="CLEAR FORM";
+			}
+			
+		break;
+		
+		case "mediapage":
+			if (currentMediaID != -1)
+			{
+				document.getElementById("clear_delete").innerHTML="DELETE";
+				document.getElementById("clear_delete2").innerHTML="DELETE";
+			}else
+			{
+				document.getElementById("clear_delete").innerHTML="CLEAR FORM";
+				document.getElementById("clear_delete2").innerHTML="CLEAR FORM";
+			}
+		
+		break;
+		
+		default:
+		
+		break;
+	}
 }
 
 function downloadAdventure(displayPOI) 
@@ -109,27 +241,36 @@ function downloadAdventure(displayPOI)
 
   		clearTimeout(t);
     	t=null;
-  		adventureData = data;
+		adventureData = data;
   		walks = adventureData.walks;
   		POIs = adventureData.POIs;
   		maps = adventureData.adventure.maps;
-	
+		
 		if (currentAdventureID != -1 && currentWalkID != -1 && currentPOIID != -1 && displayPOI ==  true)
 		{
 			addPOIs();
 			showPOIProfile(currentAdventureID, currentWalkID, currentPOIID);
-			currentModeMediaFiles = "external"
+			currentModeMediaFiles = "external";
+			updateClearDeleteButton("poipage");
+			
 		}
 		else if (displayPOI ==  false && currentMediaID != -1)
 		{
+			if (currentMediaID == 0)
+			{
+				currentMediaID = -1;
+			}
 			showListOfMediaFiles(currentAdventureID, currentWalkID, currentPOIID);
 			showMediaFileProfile(currentAdventureID, currentWalkID, currentPOIID, currentMediaID);
 			currentModeMediaFiles = "internal";
+			updateClearDeleteButton("mediapage");
 		}
 		else
 		{
 			addPOIs();
 			currentModeMediaFiles = "external";
+			updateClearDeleteButton("poipage");
+			
 		}
 		
 	});
@@ -146,6 +287,11 @@ function getHTMLDecoded(stringSource)
 	return $("<div/>").html(stringSource).text();
 }
 
+function showListOfMediaFilesEmpty()
+{
+    $("#mediafiles").html("<br /><br />");
+}
+
 function showListOfMediaFiles(adventureID, walkID, POIID)
 {
     $("#mediafiles").html("<ul>");
@@ -159,7 +305,6 @@ function showListOfMediaFiles(adventureID, walkID, POIID)
         		count2++;
         	}
     $("#mediafiles").append("</ul><hr />");
-    //$('#mediafiles').listview('refresh');	
 }
 
 function doAction(adventureID, walkID, POIID, mediaID)
@@ -209,6 +354,6 @@ function addPOIs()
         		count2++;
         	}
     $("#listPOIs").append("</ul>");
-    //$('#listPOIs').listview('refresh');
+    
 }
 
