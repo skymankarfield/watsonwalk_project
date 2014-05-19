@@ -51,11 +51,12 @@
    <textarea class="textarea input" name="notes" id="notes" placeholder="Type Notes" rows="5"></textarea>				
    </li>			
    <li>
-   <form action='' method='POST' enctype='multipart/form-data'>
-   <label class="inline" for="longdescription">SELECT FILE * <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
-   <input type='file' name='userFile' style="padding-left: 200px;"><br>
-   <input type='submit' name='upload_btn' value='upload' style="float: right;">
+   	<label class="inline" for="longdescription">SELECT FILE * <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
+   <form method='POST' enctype='multipart/form-data'>
+  <input type='file' name='file' style="padding-left: 200px;">
+  <input type='button' name='upload_btn' id="upload_btn" value='upload' style="float: right;">
    </form>
+   <br /><br /><progress style="float: right;"></progress>
    <br />
    <br />
    <img name="mediaimage" id="mediaimage" width="200" height="200" src="http://javakafe.com/location-based_App/cms_project/img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>	
@@ -95,7 +96,40 @@
 </div>
 <script language="javascript">
 	$( document ).ready(function() {
- 		
+ 		$('progress').hide();
+ 		$(':button').click(function(){
+		    var formData = new FormData($('form')[0]);
+		    $.ajax({
+		        url: imageUploadScript,  //Server script to process data
+		        type: 'POST',
+		        xhr: function() {  // Custom XMLHttpRequest
+		            var myXhr = $.ajaxSettings.xhr();
+		            if(myXhr.upload){ // Check if upload property exists
+		                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+		            }
+		            return myXhr;
+		        },
+		        //Ajax events
+		        beforeSend: beforeSendHandler,
+		        success: completeHandler,
+		        error: errorHandler,
+		        // Form data
+		        data: formData,
+		        //Options to tell jQuery not to process data or worry about content-type.
+		        cache: false,
+		        contentType: false,
+		        processData: false
+		    }).done(function(data) {
+		    	  if (data["status"] != 0)
+		    	  {
+				  	alert(JSON.stringify(data));
+				  }else
+				  {
+				  	document.getElementById("mediaimage").src = data["urlimage"];
+				  }
+				});
+		});
+
     	downloadMediaFile();
  		
 });	

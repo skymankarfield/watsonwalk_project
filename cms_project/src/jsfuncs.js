@@ -3,16 +3,44 @@ var currentAdventureID = 2;
 var currentWalkID = 4;
 var currentPOIID = -1;
 var currentMediaID = -1;
-var URLRepositoryLocal = "http://localhost/watsonwalk_cms%20/cms_project/src/pullAdventure.php?operation=generateAdventure&language=en&adventureID=";
-var POIProfilePage = "http://localhost/watsonwalk_cms%20/cms_project/poi.php";
-var mediaFileProfilePage = "http://localhost/watsonwalk_cms%20/cms_project/addmedia.php";
-var postCreateUpdatePOIInfoScript = "http://localhost/watsonwalk_cms%20/cms_project/src/createUpdatePOIInfo.php";
-var postCreateUpdateMediaInfoScript = "http://localhost/watsonwalk_cms%20/cms_project/src/createUpdateMediaInfo.php";
+var baseURL = "http://localhost/watsonwalk_cms%20/cms_project/";
+var URLRepositoryLocal = baseURL+"/src/pullAdventure.php?operation=generateAdventure&language=en&adventureID=";
+var POIProfilePage = baseURL+"/poi.php";
+var mediaFileProfilePage = baseURL+"/addmedia.php";
+var postCreateUpdatePOIInfoScript = baseURL+"/src/createUpdatePOIInfo.php";
+var postCreateUpdateMediaInfoScript = baseURL+"/src/createUpdateMediaInfo.php";
+var imageUploadScript = baseURL+"/src/imgupload.php";
 var walks = new Object();
 var POIs = new Object();
 var maps = new Object();
 var jqxhr = null;
 var currentModeMediaFiles = null;
+
+function beforeSendHandler(e)
+{
+	//alert("before sending...");
+}
+
+function completeHandler(e)
+{
+	$('progress').hide();
+	//alert("complete sending...");
+}
+
+function errorHandler(e)
+{
+	alert("There has been an error while uploading the image. Try again.");
+}
+
+function progressHandlingFunction(e){
+    if(e.lengthComputable){
+        $('progress').attr({value:e.loaded,max:e.total});
+        if( $('progress').is(':hidden') )
+        {
+        	$('progress').show();
+		}
+    }
+}
 
 function createUpdatePOIInfo()
 {

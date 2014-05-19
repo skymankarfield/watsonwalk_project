@@ -73,11 +73,12 @@
  </li>
  <br /><br /><hr /><br />
  <li>
-  <form action='' method='POST' enctype='multipart/form-data'>
-  <label class="inline" for="longdescription">Main image (to quickly identify this POI): <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>							
-  <input type='file' name='userFile' style="padding-left: 200px;"><br>
-  <input type='submit' name='upload_btn' value='upload' style="float: right;">
- </form>	
+<label class="inline" for="longdescription">Main image (to quickly identify this POI): <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>							
+<form enctype='multipart/form-data'>
+   <input type='file' name='file' style="padding-left: 200px;">
+  <input type='button' name='upload_btn' id="upload_btn" value='upload' style="float: right;">
+</form>
+<br /><br /><progress style="float: right;"></progress>
 <br /><br />
 <img name="poiimagegeneral" id="poiimagegeneral" width="200" height="200" src="http://javakafe.com/location-based_App/cms_project/img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>								
  </li>
@@ -93,37 +94,6 @@
   <br />
  </ul>
  </div>
- <br /><hr />
- <a id="displayText" href="javascript:toggle();">Show Control Panel for Automatic Values</a> 
-<div id="toggleText" style="display: none; list-style: none;">
-<br />	
- <p>These values should be set automatically and probably do not need to be edited:</p>
- <li class="field">
-  <p>Is this the first POI in the walk? <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
-<div class="picker" style="float: right; top: -35px;" >
- <select>
-  <option value="#" disabled>YES/NO</option>
-  <option>YES</option>
-  <option>NO</option>
- </select>
-</div>
- </li>	
- <li class="field">
-  <p>Is this the last POI in the walk? <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></p>
-<div class="picker" style="float: right; top: -35px;" >
- <select>
-  <option value="#" disabled>YES/NO</option>
-  <option>YES</option>
-  <option>NO</option>
- </select>
-</div>
- </li>
- <li class="field">
-  <label class="inline" for="parent">Parent POI ID <span> <a title="Lorem ipsum ad his scripta blandit partiendo, eum fastidii accumsan euripidis in, eum liber hendrerit an. Qui ut wisi vocibus suscipiantur, quo dicit ridens inciderint id. Quo mundi lobortis reformidans eu, legimus senserit definiebas an eos. Eu sit tincidunt incorrupte definitionem, vis mutat affert percipit cu, eirmod consectetuer signiferumque eu per. In usu latine equidem dolores. Quo no falli viris intellegam, ut fugit veritus placerat per.">?</a></span></label>
-  <input class="input" name="parent" placeholder="ID" />
- </li>	
-</div>		
-<hr />
 <center>
 <div class="">
  <a href="#" class="btn" onclick="createUpdatePOIInfo()">SAVE</a>		
@@ -151,10 +121,45 @@
  <p>Watson Walk CMS</p>
 </div>
 <script language="javascript">
+
 	$( document ).ready(function() {
+ 		$('progress').hide();
+ 		$(':button').click(function(){
+		    var formData = new FormData($('form')[0]);
+		    $.ajax({
+		        url: imageUploadScript,  //Server script to process data
+		        type: 'POST',
+		        xhr: function() {  // Custom XMLHttpRequest
+		            var myXhr = $.ajaxSettings.xhr();
+		            if(myXhr.upload){ // Check if upload property exists
+		                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+		            }
+		            return myXhr;
+		        },
+		        //Ajax events
+		        beforeSend: beforeSendHandler,
+		        success: completeHandler,
+		        error: errorHandler,
+		        // Form data
+		        data: formData,
+		        //Options to tell jQuery not to process data or worry about content-type.
+		        cache: false,
+		        contentType: false,
+		        processData: false
+		    }).done(function(data) {
+		    	  if (data["status"] != 0)
+		    	  {
+				  	alert(JSON.stringify(data));
+				  }else
+				  {
+				  	document.getElementById("poiimagegeneral").src = data["urlimage"];
+				  }
+				});
+		});
+ 
+    downloadAdventure(true);
  		
-    	downloadAdventure(true);
- 		
-});	
+});
+
 </script>
 </html>
