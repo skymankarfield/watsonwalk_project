@@ -21,9 +21,9 @@
 <div>
  <center>
 <div class="">
- <a href="#" onclick="goToPage('poiprofile')" class="btn">GO BACK</a>
- <a href="#" class="btn" onclick="createUpdateMediaInfo()">SAVE</a>		
- <a href="#" class="btn" name="clear_delete" id="clear_delete">DELETE</a>
+ <a href="javascript:void(0)" onclick="goToPage('poiprofile')" class="btn">GO BACK</a>
+ <a href="javascript:void(0)" class="btn" onclick="createUpdateMediaInfo()">SAVE</a>		
+ <a href="javascript:void(0)" class="btn" name="clear_delete" id="clear_delete">DELETE</a>
 </div>
  </center>
  <br />
@@ -59,7 +59,7 @@
    <br /><br /><progress style="float: right;"></progress>
    <br />
    <br />
-   <img name="mediaimage" id="mediaimage" width="200" height="200" src="http://javakafe.com/location-based_App/cms_project/img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="#" style="padding-left: 240px;" ></a>	
+   <img name="mediaimage" id="mediaimage" width="200" height="200" src="http://javakafe.com/location-based_App/cms_project/img/poi-img.jpg" style=" padding-left: 240px;"/><br /><a href="javascript:void(0)" style="padding-left: 240px;" ></a>	
    </li>
    <br />				
    </ul>
@@ -67,9 +67,9 @@
   <hr />
 <center>
 <div class="">
- <a href="#" onclick="goToPage('poiprofile')" class="btn">GO BACK</a>	
- <a href="#" class="btn" onclick="createUpdateMediaInfo()">SAVE</a>		
- <a href="#" class="btn" name="clear_delete2" id="clear_delete2">DELETE</a>
+ <a href="javascript:void(0)" onclick="goToPage('poiprofile')" class="btn">GO BACK</a>	
+ <a href="javascript:void(0)" class="btn" onclick="createUpdateMediaInfo()">SAVE</a>		
+ <a href="javascript:void(0)" class="btn" name="clear_delete2" id="clear_delete2">DELETE</a>
 </div>
 </center>
 <br />
@@ -77,7 +77,7 @@
 <div id="secondary" style="padding-bottom: 500px;">
  <h3>Media Files</h3>
  <br />
- <center><a href="#" class="btn" onclick="showMediaFileProfileEmpty()">ADD FILE</a></center>
+ <center><a href="javascript:void(0)" class="btn" onclick="showMediaFileProfileEmpty()">ADD FILE</a></center>
  <br />
  <center>
 <div id="mediafiles">

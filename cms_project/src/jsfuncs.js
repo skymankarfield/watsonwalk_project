@@ -3,7 +3,7 @@ var currentAdventureID = 2;
 var currentWalkID = 4;
 var currentPOIID = -1;
 var currentMediaID = -1;
-var baseURL = "http://localhost/watsonwalk_cms%20/cms_project/";
+var baseURL = "http://localhost/watsonwalk_cms%20/cms_project";
 var URLRepositoryLocal = baseURL+"/src/pullAdventure.php?operation=generateAdventure&language=en&adventureID=";
 var POIProfilePage = baseURL+"/poi.php";
 var mediaFileProfilePage = baseURL+"/addmedia.php";
@@ -327,7 +327,7 @@ function showListOfMediaFiles(adventureID, walkID, POIID)
    		
 			while(POIs[POIID].mediaInfo[count2] != null)
 			{
-       			$("#mediafiles").append("<li><a href='#' onclick='doAction("+adventureID+","+walkID+","+POIID+","+POIs[POIID].mediaInfo[count2].mediaInfo_ID+")' >"
+       			$("#mediafiles").append("<li><a href='javascript:void(0)' onclick='doAction("+adventureID+","+walkID+","+POIID+","+POIs[POIID].mediaInfo[count2].mediaInfo_ID+")' >"
        									+POIs[POIID].mediaInfo[count2].textContent.footnote
         								+"</a></li>");
         		count2++;
@@ -376,7 +376,7 @@ function addPOIs()
 			{
        			$("#listPOIs").append("<hr /><li><img src='"+POIs[walks[currentWalkID].POIsReferences[count2]].mediaContent.generalImage.value+"' height='200' width='200'/>"
        									+"<br />"
-        								+"<a href='#' onclick='showPOIProfile("+currentAdventureID+","+currentWalkID+","+walks[currentWalkID].POIsReferences[count2]+")' >"
+        								+"<a href='javascript:void(0)' onclick='showPOIProfile("+currentAdventureID+","+currentWalkID+","+walks[currentWalkID].POIsReferences[count2]+")' >"
         								+ POIs[walks[currentWalkID].POIsReferences[count2]].textContent.titleShort
         								+"</a></li>");
         		count2++;
