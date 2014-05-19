@@ -102,33 +102,21 @@ function getURLParameters(url)
         var sParameterName = sURLVariables[i].split('=');      
         result[sParameterName[0]] = sParameterName[1];
     }
-    if (result["adventureID"] != null)
+    if (result["adventureID"] != null && currentAdventureID == -1)
     {
     	currentAdventureID = result["adventureID"];
-    }else
-    {
-    	currentAdventureID = -1;
     }
-    if (result["walkID"] != null)
+    if (result["walkID"] != null && currentWalkID == -1)
 	{
 		currentWalkID = result["walkID"];
-	}else
-	{
-		currentWalkID = -1;
 	}
-	if (result["poiID"] != null)
+	if (result["poiID"] != null && currentPOIID == -1)
 	{
 		currentPOIID = result["poiID"];
-	}else
-	{
-		currentPOIID = -1;
 	}
-	if (result["mediaID"] != null)
+	if (result["mediaID"] != null && currentMediaID == -1)
 	{
 		currentMediaID = result["mediaID"];
-	}else
-	{
-		currentMediaID = -1;
 	}
     
 }
