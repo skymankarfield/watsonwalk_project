@@ -22,7 +22,8 @@ if ($_POST["currentPOIID"] != -1)
 	$foreignID = $_POST["currentPOIID"];
 	$query = "UPDATE POI SET lat=".mysqli_real_escape_string($link,($_POST["latitude"]*1000000)).",
 				lon=".mysqli_real_escape_string($link,($_POST["longitude"]*1000000)).",
-				distanceAvailable=".mysqli_real_escape_string($link,$_POST["distanceavailable"])." 
+				distanceAvailable=".mysqli_real_escape_string($link,$_POST["distanceavailable"]).",
+				active='".mysqli_real_escape_string($link,$_POST["active"])."'
 				WHERE POI.POI_ID=".$foreignID."";
 	@mysqli_real_query($link,$query);
 	
@@ -32,7 +33,8 @@ if ($_POST["currentPOIID"] != -1)
 					".mysqli_real_escape_string($link,($_POST["latitude"]*1000000)).",
 					".mysqli_real_escape_string($link,($_POST["longitude"]*1000000)).",
 					".mysqli_real_escape_string($link,$_POST["distanceavailable"]).",
-					'1','1','1','0','1')";
+					'".mysqli_real_escape_string($link,$_POST["active"])."',
+					'1','1','0','1')";
 		@mysqli_real_query($link,$query);
 		$foreignID=mysqli_insert_id($link);
 		

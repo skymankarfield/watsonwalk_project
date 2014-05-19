@@ -157,7 +157,7 @@ function getMediaInfo($elementID,$tagKey,$online,&$link,$baseURL,$language)
 function getPOI($POIID,$online,&$link,$baseURL,$language,$adventureID)
 {
 	$POIArray = array();
-	$query = "SELECT * FROM POI WHERE POI_ID=".$POIID." AND active='1'";
+	$query = "SELECT * FROM POI WHERE POI_ID=".$POIID."";
 	@mysqli_real_query($link,$query);
 	$result = mysqli_store_result($link);
 	//$i = 0;
@@ -171,6 +171,7 @@ function getPOI($POIID,$online,&$link,$baseURL,$language,$adventureID)
 			$POIArray["lat"] = $row['lat'];
 			$POIArray["lon"] = $row['lon'];
 			$POIArray["distanceAvailable"] = $row['distanceAvailable'];
+			$POIArray["active"] = $row['active'];
 			$POIArray["containsMediaContent"] = ($row['mediaContentActive'] == '1') ? "1" : "0";
 			$POIArray["containsTextContent"] = ($row['textContentActive'] == '1') ? "1" : "0";
 			$POIArray["containsParameters"] = ($row['parametersActive'] == '1') ? "1" : "0";

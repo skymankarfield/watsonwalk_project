@@ -48,7 +48,7 @@ function createUpdatePOIInfo()
 	postJsonBody["currentPOIID"] = currentPOIID;
 	postJsonBody["currentWalkID"] = currentWalkID;
 	postJsonBody["currentAdventureID"] = currentAdventureID;
-	postJsonBody["status"] = $('#status').val();
+	postJsonBody["active"] = $('#status').val();
 	postJsonBody["shortname"] = document.getElementById("shortname").value;
 	postJsonBody["longname"] = document.getElementById("longname").value;
 	postJsonBody["latitude"] = document.getElementById("latitude").value;
@@ -193,6 +193,7 @@ function showPOIProfile(adventureID, walkID, POIID)
 	document.getElementById("shortdescription").value = getHTMLDecoded(POIs[POIID].textContent.descriptionShort);
 	document.getElementById("longdescription").value = getHTMLDecoded(POIs[POIID].textContent.descriptionLong);
 	document.getElementById("poiimagegeneral").src = POIs[POIID].mediaContent.generalImage.value;
+	$('#status').val(POIs[POIID].active);
 	showListOfMediaFiles(adventureID, walkID, POIID);
 	updateClearDeleteButton("poipage");
 }
