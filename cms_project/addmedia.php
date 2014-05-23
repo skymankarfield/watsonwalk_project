@@ -2,6 +2,7 @@
 <head>
  <link rel='stylesheet' id=''  href='src/style.css' type='text/css' media='all' />
  <script src="src/jquery-2.1.0.js"></script>
+ <script src="src/global_vars.js"></script>
 <script src="src/jsfuncs.js"></script>
 </head>
 <body>
@@ -129,7 +130,8 @@
 				  }
 				});
 		});
-
+		
+		getURLParameters(window.location.href);
     	downloadMediaFile();
  		
 });	

@@ -563,6 +563,77 @@ function getAdventure($adventureID,$online,&$link,$language)
 	return $adventureArray;
 }
 	
+function getAdventuresAndWalksForJSTree($online,&$link,$language)
+{
+	$adventureArray = array();
+	$i = 0;
+	$adventureArray[$i]["id"] = "action/newadventure";
+	$adventureArray[$i]["parent"] = "#";
+	$adventureArray[$i]["text"] = "[New Adventure]";
+	$i++;
+	$query1 = "SELECT adventure.adventure_ID as adventureID, textContent.value as title 
+				FROM adventure, textContent 
+					WHERE textContent.element_ID = adventure.adventure_ID 
+						AND textContent.tagKey = 'adventure'
+						AND textContent.languageKey = '".$language."' 
+						AND textContent.paramKey = 'nameShort'
+						AND textContent.active = '1'
+						AND adventure.active= '1' 
+						ORDER BY adventure.adventure_ID ASC";
+	@mysqli_real_query($link,$query1);
+	$result1 = mysqli_store_result($link);
+	if(mysqli_num_rows($result1)>0)
+	{
+		$row1 = mysqli_fetch_assoc($result1);
+		
+		do{
+			//$tmparray1 = array();
+			$adventureArray[$i]["id"] = "adventure".$row1["adventureID"];
+			$adventureArray[$i]["parent"] = "#";
+			$adventureArray[$i]["text"] = $row1["title"];
+			//$adventureArray[$i] = $tmparray1;
+			$i++;	
+			
+			$adventureArray[$i]["id"] = "action/newwalk/".$row1["adventureID"];
+			$adventureArray[$i]["parent"] = "adventure".$row1["adventureID"];;
+			$adventureArray[$i]["text"] = "[New Walk]";
+			$i++;
+			
+			$tmp_adventureArray = array();
+			$query2 = "SELECT walk.walk_ID as walkID, textContent.value as title 
+						FROM walk, textContent 
+							WHERE walk.adventure_ID = ".$row1["adventureID"]."
+								AND textContent.element_ID = walk.walk_ID 
+								AND textContent.tagKey = 'walk'
+								AND textContent.languageKey = '".$language."' 
+								AND textContent.paramKey = 'nameShort'
+								AND textContent.active = '1' 
+								AND walk.active = '1'
+								ORDER BY walk.walk_ID ASC";
+			@mysqli_real_query($link,$query2);
+			$result2 = mysqli_store_result($link);
+			if(mysqli_num_rows($result2)>0)
+			{
+				$row2 = mysqli_fetch_assoc($result2);
+				
+				do{
+					//$tmparray2 = array();
+					$adventureArray[$i]["id"] = $row1["adventureID"]."-".$row2["walkID"];
+					$adventureArray[$i]["parent"] = "adventure".$row1["adventureID"];
+					$adventureArray[$i]["text"] = $row2["title"];
+					//$adventureArray[$i] = $tmparray2;
+					$i++;	
+					
+				}while($row2 = mysqli_fetch_assoc($result2));
+				
+			}
+						
+		}while($row1 = mysqli_fetch_assoc($result1));
+		
+	}
+	return $adventureArray;
+}
+	
 function getAdventureMetadata($adventureID,$online,&$link,$language)
 {
 	$adventureArray = array();
@@ -636,6 +707,12 @@ if($link)
 	
 	switch($operation)
 	{
+		case 'generateAdventuresAndWalksForJSTree':
+			
+			$JSONFile["data"] = getAdventuresAndWalksForJSTree($online,$link,$language);
+			
+			break;
+			
 		case 'generateWalk':
 			
 			break;
@@ -687,8 +764,9 @@ if($link)
 		
 	}
 
+	//echo var_dump($JSONFile);
 	$json = json_encode($JSONFile);
-	header("Content-type:text/json");
+	header("Content-type:html/json");
 	echo $json;
 	
 	exit();

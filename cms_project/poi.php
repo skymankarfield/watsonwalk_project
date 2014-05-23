@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <head>
 <link rel='stylesheet' id=''  href='src/style.css' type='text/css' media='all' />
+<link rel="stylesheet" href="src/themes/default/style.min.css" />
 <script src="src/jquery-2.1.0.js"></script>
+<script src="src/jstree.min.js"></script>
+<script src="src/global_vars.js"></script>
 <script src="src/jsfuncs.js"></script>
 </head>
 <body>
@@ -10,9 +13,11 @@
  <a href="poi.php"><img src="img/logo.png" style="padding-top: 10px;"/></a>
 </div>    
 <div id="primary">
- <h3>MAIN PANEL</h3>
+ <h3>ADVENTURES</h3>
  <hr />
-<img src="img/watson.jpg"  />
+<div id="jstreediv">
+
+</div>
  <br />
 </div>
 <div id="content">
@@ -32,7 +37,7 @@
 <center>
 <div class="">
  <a href="javascript:void(0)" class="btn" onclick="createUpdatePOIInfo()">SAVE</a>		
- <a href="javascript:void(0)" class="btn" name="clear_delete" id="clear_delete">DELETE</a>
+ <a href="javascript:void(0)" class="btn" onclick="showPOIProfileEmpty()" name="clear_delete" id="clear_delete">DELETE</a>
 </div>
 </center>
 <br />
@@ -96,7 +101,7 @@
 <center>
 <div class="">
  <a href="javascript:void(0)" class="btn" onclick="createUpdatePOIInfo()">SAVE</a>		
- <a href="javascript:void(0)" class="btn" name="clear_delete2" id="clear_delete2">DELETE</a>
+ <a href="javascript:void(0)" class="btn" onclick="showPOIProfileEmpty()" name="clear_delete2" id="clear_delete2">DELETE</a>
 </div>
 </center>
 <br />
@@ -121,7 +126,8 @@
 </div>
 <script language="javascript">
 
-	$( document ).ready(function() {
+	$(document).ready(function() {
+		
  		$('progress').hide();
  		$(':button').click(function(){
 		    var formData = new FormData($('form')[0]);
@@ -156,8 +162,16 @@
 				});
 		});
  
-    downloadAdventure(true);
- 		
+ 	getURLParameters(window.location.href);
+ 	if (currentAdventureID != -1 && currentWalkID != -1)
+ 	{
+ 		refreshJSTree();
+    	downloadAdventure(true);
+
+   	}else
+   	{
+   		refreshJSTree();
+   	}
 });
 
 </script>

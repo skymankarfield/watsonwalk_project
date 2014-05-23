@@ -1,14 +1,16 @@
 var adventureData = new Object();
-var currentAdventureID = 2;
-var currentWalkID = 4;
+var currentAdventureID = -1;
+var currentWalkID = -1;
 var currentPOIID = -1;
 var currentMediaID = -1;
-var baseURL = "http://localhost/watsonwalk_cms%20/cms_project";
+var URLJSTree = baseURL+"/src/pullAdventure.php?operation=generateAdventuresAndWalksForJSTree&language=en&adventureID=-1";
 var URLRepositoryLocal = baseURL+"/src/pullAdventure.php?operation=generateAdventure&language=en&adventureID=";
 var POIProfilePage = baseURL+"/poi.php";
 var mediaFileProfilePage = baseURL+"/addmedia.php";
 var postCreateUpdatePOIInfoScript = baseURL+"/src/createUpdatePOIInfo.php";
 var postCreateUpdateMediaInfoScript = baseURL+"/src/createUpdateMediaInfo.php";
+var postCreateUpdateAdventureInfoScript = baseURL+"/src/createUpdateAdventureInfo.php";
+var postCreateUpdateWalkInfoScript = baseURL+"/src/createUpdateWalkInfo.php";
 var imageUploadScript = baseURL+"/src/imgupload.php";
 var walks = new Object();
 var POIs = new Object();
@@ -40,6 +42,33 @@ function progressHandlingFunction(e){
         	$('progress').show();
 		}
     }
+}
+
+function createUpdateWalkInfo(walkName, adventureid)
+{
+	postJsonBody = new Object();
+	postJsonBody["shortname"] = walkName;
+	postJsonBody["adventureID"] = adventureid;
+	t=setTimeout("checkInternetConnection()",10000);
+	jqxhr = $.post( postCreateUpdateWalkInfoScript, postJsonBody, function( data ) {
+		clearTimeout(t);
+    	t=null;
+    	refreshJSTree();
+	});
+}
+
+function createUpdateAdventureInfo(adventureName)
+{
+	postJsonBody = new Object();
+	postJsonBody["shortname"] = adventureName;
+
+	t=setTimeout("checkInternetConnection()",10000);
+	jqxhr = $.post( postCreateUpdateAdventureInfoScript, postJsonBody, function( data ) {
+		clearTimeout(t);
+    	t=null;
+    	refreshJSTree();
+    	
+	});
 }
 
 function createUpdatePOIInfo()
@@ -142,10 +171,13 @@ function goToPage(page)
 
 function checkInternetConnection()
 {
-	jqxhr.abort();
-    clearTimeout(t);
-    t=null;
-    alert("The server is not reachable. Please, make sure you are connected to the Internet. Thanks.");
+	if (t!=null)
+	{
+		jqxhr.abort();
+	    clearTimeout(t);
+	    t=null;
+	    alert("The server is not reachable. Please, make sure you are connected to the Internet. Thanks.");
+	}
 
 }
 
@@ -250,9 +282,59 @@ function updateClearDeleteButton(page)
 	}
 }
 
+function refreshJSTree()
+{
+	$("#jstreediv").jstree("destroy");
+	downloadJSTree();
+	$('#jstreediv').on('changed.jstree', function (e, data) {
+	    var res = (data.instance.get_node(data.selected[0]).id).split("-");
+	    if (res.length == 2)
+	    {
+			if (currentWalkID != res[1])
+			{
+				currentAdventureID = res[0];
+				currentWalkID = res[1];
+				downloadAdventure(true);
+				showPOIProfileEmpty();
+	    	}
+	    }else
+	    {
+	    	res = (data.instance.get_node(data.selected[0]).id).split("/");
+	    	if (res.length == 2)
+	    	{
+	    		var adventure = prompt("Please enter adventure name:");
+	    		if (adventure != null && adventure != "")
+	    		{
+	    			createUpdateAdventureInfo(adventure);
+	    		}
+	    	}else if(res.length == 3)
+	    	{
+	    		var walk = prompt("Pleaes enter walk name:");
+	    		if (walk != null && walk != "")
+	    		{
+	    			createUpdateWalkInfo(walk, res[2]);
+	    		}
+	    	}
+	    }
+	    
+  });
+}
+
+function downloadJSTree()
+{
+	
+	t=setTimeout("checkInternetConnection()",10000);
+	jqxhr = $.getJSON(URLJSTree, function(data) {
+
+  		clearTimeout(t);
+    	t=null;
+		//alert(JSON.stringify(data));
+		$('#jstreediv').jstree({ 'core' : data });
+	});
+}	
+
 function downloadAdventure(displayPOI) 
 {
-	getURLParameters(window.location.href);
 	t=setTimeout("checkInternetConnection()",10000);
 	jqxhr = $.getJSON(URLRepositoryLocal+currentAdventureID, function(data) {
 
@@ -290,6 +372,8 @@ function downloadAdventure(displayPOI)
 			
 		}
 		
+		//refreshJSTree();
+		
 	});
 }
 
@@ -318,7 +402,7 @@ function showListOfMediaFiles(adventureID, walkID, POIID)
 			{
        			$("#mediafiles").append("<li><a href='javascript:void(0)' onclick='doAction("+adventureID+","+walkID+","+POIID+","+POIs[POIID].mediaInfo[count2].mediaInfo_ID+")' >"
        									+POIs[POIID].mediaInfo[count2].textContent.footnote
-        								+"</a></li>");
+        								+"</a></li><br /><center>-------------------</center><br />");
         		count2++;
         	}
     $("#mediafiles").append("</ul><hr />");
